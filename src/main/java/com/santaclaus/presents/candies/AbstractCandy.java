@@ -1,7 +1,7 @@
 package com.santaclaus.presents.candies;
 
 
-public abstract class AbstractCandy {
+public abstract class AbstractCandy implements Identifiable {
     
     public static final String TAG_CANDY = "candy";
     public static final String TAG_NAME = "name";

@@ -45,7 +45,7 @@ public class PresentsController {
             String fileType = file.getContentType();
             if (FILE_TYPE.equalsIgnoreCase(fileType)){
                 
-                InputStream xmlFile = null;
+                InputStream xmlFile = null; //в отдельный метод
                 try {
                     xmlFile = file.getInputStream();
                 }                
@@ -63,6 +63,8 @@ public class PresentsController {
                     catch (Exception e){
                         uploadMessage = "ERROR: Incorrect XML file uploaded";
                     }
+
+                    //--------
                     
                     if (present != null){
                         

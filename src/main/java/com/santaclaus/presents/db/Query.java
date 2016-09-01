@@ -8,9 +8,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public abstract class Query {
+public abstract class Query { //перенести в DAOHelper, создавать отдельный класс запроса не надо
+                                // то есть это получается как action item, который содержит данные и выполянет действия
+                                // я бы разделил действия от запроса, создав методы без состояния, см. DAOHelper
     
-    Connection connection = null;
+    Connection connection = null; //модификаторы доступа должны пресутствовать
     Statement statement = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
