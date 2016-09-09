@@ -1,13 +1,10 @@
 package com.santaclaus.presents.candies;
 
-import com.santaclaus.presents.candies.properties.ChocoType;
-import com.santaclaus.presents.candies.properties.FillingType;
-
 
 public class ChocolateCandyWithFilling extends ChocolateCandy {
     
     public static final String TAG_FILLING_TYPE = "filling-type";
-    public static final String FIELD_FILLING_TYPE = "candy.filling_type";
+    public static final String FIELD_FILLING_TYPE = "filling_type";
     
     private FillingType fillingType;
     
@@ -26,6 +23,6 @@ public class ChocolateCandyWithFilling extends ChocolateCandy {
 
     public void setFillingType(FillingType fillingType) {
         this.fillingType = fillingType;
-    }
+    } 
     
 }

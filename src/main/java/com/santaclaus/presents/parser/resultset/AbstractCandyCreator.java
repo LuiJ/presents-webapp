@@ -1,13 +1,14 @@
 package com.santaclaus.presents.parser.resultset;
 
 import com.santaclaus.presents.candies.AbstractCandy;
+import com.santaclaus.presents.candies.Identifiable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public abstract class AbstractCandyBuilder {
+public abstract class AbstractCandyCreator {
     
-    public AbstractCandy build(ResultSet candyResultSet) throws SQLException {
+    public Identifiable create(ResultSet candyResultSet) throws SQLException {
         
         AbstractCandy candy = createSpecificCandy();
         
@@ -16,9 +17,6 @@ public abstract class AbstractCandyBuilder {
         
         int presentId = candyResultSet.getInt(AbstractCandy.FIELD_PRESENT_ID);
         candy.setPresentId(presentId);
-        
-        String type = candyResultSet.getString(AbstractCandy.FIELD_TYPE);
-        candy.setType(type);
         
         String name = candyResultSet.getString(AbstractCandy.FIELD_NAME);
         candy.setName(name);

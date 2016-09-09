@@ -1,4 +1,4 @@
-package com.santaclaus.presents.candies.properties;
+package com.santaclaus.presents.candies;
 
 
 public enum FillingType {

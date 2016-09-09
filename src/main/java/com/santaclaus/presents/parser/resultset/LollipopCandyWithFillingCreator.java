@@ -2,17 +2,18 @@ package com.santaclaus.presents.parser.resultset;
 
 import com.santaclaus.presents.candies.AbstractCandy;
 import com.santaclaus.presents.candies.LollipopCandyWithFilling;
-import com.santaclaus.presents.candies.properties.FillingType;
+import com.santaclaus.presents.candies.FillingType;
+import com.santaclaus.presents.candies.Identifiable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class LollipopCandyWithFillingBuilder extends LollipopCandyBuilder {
+public class LollipopCandyWithFillingCreator extends LollipopCandyCreator {
       
     @Override
-    public LollipopCandyWithFilling build(ResultSet candyResultSet) throws SQLException {
+    public Identifiable create(ResultSet candyResultSet) throws SQLException {
         
-        LollipopCandyWithFilling candy = (LollipopCandyWithFilling) super.build(candyResultSet);
+        LollipopCandyWithFilling candy = (LollipopCandyWithFilling) super.create(candyResultSet);
         
         FillingType fillingType = FillingType.valueOf(candyResultSet.getString(LollipopCandyWithFilling.FIELD_FILLING_TYPE));
         

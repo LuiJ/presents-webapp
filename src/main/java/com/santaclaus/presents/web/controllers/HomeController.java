@@ -3,6 +3,7 @@ package com.santaclaus.presents.web.controllers;
 import com.santaclaus.presents.dao.DAOFactory;
 import com.santaclaus.presents.dao.PresentDAO;
 import com.santaclaus.presents.present.Present;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +21,13 @@ public class HomeController {
     {  
         
         PresentDAO presentDAO = DAOFactory.INSTANCE.getPresentDAO();        
-        List<Integer> presentsId = presentDAO.getAllPresentsId();
+        List<Present> presents = presentDAO.getAllPresents();
+        List<Integer> presentsId = new ArrayList<>();
+        
+        for (Present p : presents){
+            int presentId = p.getId();
+            presentsId.add(presentId);
+        }
         
         model.addAttribute("presentsId", presentsId);
         model.addAttribute("present", present);

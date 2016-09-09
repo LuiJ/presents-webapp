@@ -26,10 +26,11 @@ public class PresentsController {
     public String getPresentById(@RequestParam("id") int id, 
                                  RedirectAttributes redirectAttributes)
     {
-        PresentDAO presentDAO = DAOFactory.INSTANCE.getPresentDAO();
-        Present present = presentDAO.getPresentById(id);
-        
-        redirectAttributes.addFlashAttribute("present", present);
+        if (id != 0){
+            PresentDAO presentDAO = DAOFactory.INSTANCE.getPresentDAO();
+            Present present = presentDAO.getPresentById(id);
+            redirectAttributes.addFlashAttribute("present", present);
+        }        
         return "redirect:/";
     } 
     
@@ -40,51 +41,53 @@ public class PresentsController {
     public String addPresent(@RequestParam("file") MultipartFile file,
                              RedirectAttributes redirectAttributes)
     {
-        String uploadMessage = null;
+        StringBuilder uploadMessage = new StringBuilder();
         if (!file.isEmpty()){
             String fileType = file.getContentType();
             if (FILE_TYPE.equalsIgnoreCase(fileType)){
-                
-                InputStream xmlFile = null; //в отдельный метод
-                try {
-                    xmlFile = file.getInputStream();
-                }                
-                catch (IOException e){
-                    uploadMessage = "ERROR: File processing failed. Try again, please.";
-                }                
-                
-                if (xmlFile != null){
-                    
-                    Present present = null;
+                Present present = createPresent(file, uploadMessage);
+                if (present != null){
                     try {
-                        PresentCreator presentCreator = new PresentCreatorXml(xmlFile);
-                        present = presentCreator.create();
+                        PresentDAO presentDAO = DAOFactory.INSTANCE.getPresentDAO();
+                        int newPresentId = presentDAO.addPresent(present);
+                        uploadMessage.append("INFO: Present has been sucessfully added. Present ID = "+newPresentId);
                     }
                     catch (Exception e){
-                        uploadMessage = "ERROR: Incorrect XML file uploaded";
+                        uploadMessage.append("ERROR: DataBase error. Please, contact support :)");
                     }
-
-                    //--------
-                    
-                    if (present != null){
-                        
-                        try {
-                            PresentDAO presentDAO = DAOFactory.INSTANCE.getPresentDAO();
-                            int newPresentId = presentDAO.addPresent(present);
-                            uploadMessage = "INFO: Present has been sucessfully added. Present ID = "+newPresentId;
-                        }
-                        catch (Exception e){
-                            uploadMessage = "ERROR: DataBase error. Please, contact support :)";
-                        }
-                    }                    
-                }
+                } 
             }
             else {
-                uploadMessage = "ERROR: Incorrect file uploaded";
+                uploadMessage.append("ERROR: Incorrect file uploaded");
             }
         }        
         redirectAttributes.addFlashAttribute("uploadMessage", uploadMessage);
         return "redirect:/";
+    }
+    
+    
+    private Present createPresent(MultipartFile file, StringBuilder uploadMessage)
+    {
+        InputStream xmlFile = null;
+        Present present = null;
+        
+        try {
+            xmlFile = file.getInputStream();
+        }                
+        catch (IOException e){
+            uploadMessage.append("ERROR: File processing failed. Try again, please.");
+        }                
+
+        if (xmlFile != null){            
+            try {
+                PresentCreator presentCreator = new PresentCreatorXml(xmlFile);
+                present = presentCreator.create();
+            }
+            catch (Exception e){
+                uploadMessage.append("ERROR: Incorrect XML file uploaded");
+            }    
+        }        
+        return present;
     }
     
 }

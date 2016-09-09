@@ -2,7 +2,7 @@ package com.santaclaus.presents.parser.xml;
 
 import com.santaclaus.presents.candies.AbstractCandy;
 import com.santaclaus.presents.candies.LollipopCandyWithFilling;
-import com.santaclaus.presents.candies.properties.FillingType;
+import com.santaclaus.presents.candies.FillingType;
 import java.util.Properties;
 
 

@@ -6,10 +6,10 @@ import java.util.Properties;
 
 public class CandyFactory {
     
-    private static final String CHOCO_CANDY = "chocolate";
-    private static final String CHOCO_CANDY_WITH_FILLING = "chocolateWithFilling";
-    private static final String LOLLIPOP_CANDY = "lollipop";
-    private static final String LOLLIPOP_CANDY_WITH_FILLING = "lollipopWithFilling";
+    private static final String CHOCO_CANDY = "ChocolateCandy";
+    private static final String CHOCO_CANDY_WITH_FILLING = "ChocolateCandyWithFilling";
+    private static final String LOLLIPOP_CANDY = "LollipopCandy";
+    private static final String LOLLIPOP_CANDY_WITH_FILLING = "LollipopCandyWithFilling";
 
     private static AbstractCandyBuilder builder;
     

@@ -8,6 +8,6 @@ public interface PresentDAO {
 
     int addPresent(Present present);
     Present getPresentById(int id);
-    List<Integer> getAllPresentsId();
+    List<Present> getAllPresents();
     
 }

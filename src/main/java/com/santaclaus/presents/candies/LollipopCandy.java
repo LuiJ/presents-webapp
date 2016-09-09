@@ -1,12 +1,10 @@
 package com.santaclaus.presents.candies;
 
-import com.santaclaus.presents.candies.properties.TasteType;
-
 
 public class LollipopCandy extends AbstractCandy {
 
     public static final String TAG_TASTE_TYPE = "taste-type";
-    public static final String FIELD_TASTE_TYPE = "candy.taste_type";
+    public static final String FIELD_TASTE_TYPE = "taste_type";
     
     private TasteType tasteType;
     
@@ -23,6 +21,11 @@ public class LollipopCandy extends AbstractCandy {
 
     public void setTasteType(TasteType tasteType) {
         this.tasteType = tasteType;
+    } 
+    
+    @Override
+    public String toString(){
+        return super.toString() + ", type: "+this.getClass().getSimpleName();
     }
     
 }

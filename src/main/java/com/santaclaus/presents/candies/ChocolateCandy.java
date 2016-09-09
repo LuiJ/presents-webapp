@@ -1,14 +1,10 @@
 package com.santaclaus.presents.candies;
 
-import com.santaclaus.presents.candies.properties.ChocoType;
-
 
 public class ChocolateCandy extends AbstractCandy {
-
-    public static final String TABLE_NAME = ""; // или имя типа для того чтобы понимать как делат ьзапрос из БД
     
     public static final String TAG_CHOCO_TYPE = "choco-type";
-    public static final String FIELD_CHOCO_TYPE = "candy.choco_type";
+    public static final String FIELD_CHOCO_TYPE = "choco_type";
     
     private ChocoType chocoType; 
     
@@ -26,5 +22,10 @@ public class ChocolateCandy extends AbstractCandy {
     public void setChocoType(ChocoType chocoType) {
         this.chocoType = chocoType;
     } 
+    
+    @Override
+    public String toString(){
+        return super.toString() + ", type: "+this.getClass().getSimpleName();
+    }
     
 }

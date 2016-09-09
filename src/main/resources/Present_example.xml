@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <present name="New Year">
-    <candy type="lollipop">
+    <candy type="LollipopCandy">
         <name>Aeroflotskaya</name>
         <weight>1.5</weight>
         <price>2</price>
         <taste-type>Cocacola</taste-type>
     </candy>
-    <candy type="lollipopWithFilling">
+    <candy type="LollipopCandyWithFilling">
         <name>Barbarys</name>
         <weight>1.8</weight>
         <price>1.6</price>
         <taste-type>Cake</taste-type>
         <filling-type>Gum</filling-type>
     </candy>
-    <candy type="chocolate">
+    <candy type="ChocolateCandy">
         <name>Krasnaya shapochka</name>
         <weight>2.1</weight>
         <price>2.4</price>
         <choco-type>Milk</choco-type>
     </candy>
-    <candy type="chocolateWithFilling">
+    <candy type="ChocolateCandyWithFilling">
         <name>Gryliazh</name>
         <weight>2.3</weight>
         <price>2.5</price>

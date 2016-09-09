@@ -2,17 +2,18 @@ package com.santaclaus.presents.parser.resultset;
 
 import com.santaclaus.presents.candies.AbstractCandy;
 import com.santaclaus.presents.candies.ChocolateCandy;
-import com.santaclaus.presents.candies.properties.ChocoType;
+import com.santaclaus.presents.candies.ChocoType;
+import com.santaclaus.presents.candies.Identifiable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class ChocolateCandyBuilder extends AbstractCandyBuilder {
+public class ChocolateCandyCreator extends AbstractCandyCreator {
     
     @Override
-    public ChocolateCandy build(ResultSet candyResultSet) throws SQLException {
+    public Identifiable create(ResultSet candyResultSet) throws SQLException {
         
-        ChocolateCandy candy = (ChocolateCandy) super.build(candyResultSet);
+        ChocolateCandy candy = (ChocolateCandy) super.create(candyResultSet);
         
         ChocoType chocoType = ChocoType
         .valueOf(candyResultSet.getString(ChocolateCandy.FIELD_CHOCO_TYPE));

@@ -8,19 +8,20 @@ public abstract class AbstractCandy implements Identifiable {
     public static final String TAG_WEIGHT = "weight";
     public static final String TAG_PRICE = "price";
     
-    public static final String FIELD_ID = "candy.id";
-    public static final String FIELD_PRESENT_ID = "candy.present_id";
-    public static final String FIELD_TYPE = "candy.type";
-    public static final String FIELD_NAME = "candy.name";
-    public static final String FIELD_WEIGHT = "candy.weight";
-    public static final String FIELD_PRICE = "candy.price";
+    public static final String TABLE_NAME = "candy";
+    public static final String FIELD_ID = "id";
+    public static final String FIELD_PRESENT_ID = "present_id";
+    public static final String FIELD_TYPE = "type";
+    public static final String FIELD_NAME = "name";
+    public static final String FIELD_WEIGHT = "weight";
+    public static final String FIELD_PRICE = "price";
     
     private int id;
     private int presentId;
-    private String type;
     private String name;
     private double weight;
     private double price;
+    private String type;
     
     public AbstractCandy(){}
     
@@ -28,12 +29,15 @@ public abstract class AbstractCandy implements Identifiable {
         this.name = name;
         this.weight = weight;
         this.price = price;
+        type = this.getClass().getSimpleName();
     }
 
+    @Override
     public int getId(){
         return id;
     }
 
+    @Override
     public void setId(int id){
         this.id = id;
     }
@@ -46,12 +50,12 @@ public abstract class AbstractCandy implements Identifiable {
         this.presentId = presentId;
     }
 
-    public String getType() {
-        return type;
-    }
-
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public String getName(){
@@ -78,6 +82,6 @@ public abstract class AbstractCandy implements Identifiable {
     
     @Override
     public String toString(){
-        return "PresentID#"+presentId+", CandyID#"+id+", CandyType: "+type+", Name: "+name+", Weight: "+weight+", Price: "+price+";";
+        return "PresentID#"+presentId+", CandyID#"+id+", Name: "+name+", Weight: "+weight+", Price: "+price;
     }
 }
