@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface PresentDAO {
 
-    int addPresent(Present present);
-    Present getPresentById(int id);
-    List<Present> getAllPresents();
+    int save(Present present);
+    Present getById(int id);
+    List<Present> getAll();
     
 }

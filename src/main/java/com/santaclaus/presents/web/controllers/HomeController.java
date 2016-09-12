@@ -21,7 +21,7 @@ public class HomeController {
     {  
         
         PresentDAO presentDAO = DAOFactory.INSTANCE.getPresentDAO();        
-        List<Present> presents = presentDAO.getAllPresents();
+        List<Present> presents = presentDAO.getAll();
         List<Integer> presentsId = new ArrayList<>();
         
         for (Present p : presents){

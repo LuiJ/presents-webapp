@@ -14,15 +14,12 @@ public class CandyDAOImpl implements CandyDAO {
     }
 
     @Override
-    public void addCandies(int presentId, List<AbstractCandy> candies){       
-        for (AbstractCandy candy : candies){
-            candy.setPresentId(presentId);
-            helper.save(candy);
-        }
+    public void save(AbstractCandy candy){ 
+        helper.save(candy);
     }
     
     @Override
-    public List<AbstractCandy> getCandiesByPresentId(int presentId){
+    public List<AbstractCandy> getByPresentId(int presentId){
         String id = String.valueOf(presentId);
         Properties conditions = new Properties();
         conditions.put("present_id", id);

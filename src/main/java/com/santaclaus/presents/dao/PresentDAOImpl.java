@@ -17,21 +17,24 @@ public class PresentDAOImpl implements PresentDAO {
 
     
     @Override
-    public int addPresent(Present present){        
+    public int save(Present present){        
         int newPresentId = helper.save(present); 
         List<AbstractCandy> candies = present.getCandies();
         
         if (!candies.isEmpty()){
-            candyDAO.addCandies(newPresentId, candies);
+            for (AbstractCandy candy : candies){
+                candy.setPresentId(newPresentId);
+                candyDAO.save(candy);
+            }
         }        
         return newPresentId;        
     }    
     
     
     @Override
-    public Present getPresentById(int id){        
+    public Present getById(int id){        
         Present present = helper.getById(id);
-        List<AbstractCandy> candies = candyDAO.getCandiesByPresentId(id);
+        List<AbstractCandy> candies = candyDAO.getByPresentId(id);
         
         for (AbstractCandy candy : candies){
             present.addCandy(candy);
@@ -41,7 +44,7 @@ public class PresentDAOImpl implements PresentDAO {
     
     
     @Override
-    public List<Present> getAllPresents(){        
+    public List<Present> getAll(){        
         List<Present> presents = helper.getAll();        
         return presents;        
     }

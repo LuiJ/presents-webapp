@@ -24,12 +24,13 @@ import org.apache.commons.lang3.StringUtils;
 
 public class DAOHelper <T extends Identifiable> {  
     
-    private static final int SELECT_OPERATION = 1;
-    private static final int UPDATE_OPERATION = 2;
+    private enum OperationEnum {
+        SELECT, UPDATE;
+    }
     
-    private static final int PARAMS_AND_VALUES = 1;
-    private static final int PARAMS = 2;
-    private static final int VALUES = 3;
+    private enum ResultTypeEnum {
+        PARAMS_AND_VALUES, PARAMS, VALUES;
+    }
     
     private Class<T> type;
     private Connection connection = null;
@@ -104,7 +105,7 @@ public class DAOHelper <T extends Identifiable> {
             e.printStackTrace();
         } 
         finally {
-            closeDbConnection(SELECT_OPERATION);
+            closeDbConnection(OperationEnum.SELECT);
         }        
         return entities;
     }
@@ -128,7 +129,7 @@ public class DAOHelper <T extends Identifiable> {
             e.printStackTrace();
         } 
         finally {
-            closeDbConnection(UPDATE_OPERATION);
+            closeDbConnection(OperationEnum.UPDATE);
         }        
         return entities;
     }
@@ -146,12 +147,12 @@ public class DAOHelper <T extends Identifiable> {
     }
     
     
-    private void closeDbConnection(int operation){
+    private void closeDbConnection(OperationEnum operation){
         try {
-            if (resultSetSelect != null && operation == SELECT_OPERATION) {
+            if (resultSetSelect != null && operation == OperationEnum.SELECT) {
                 resultSetSelect.close();
             }
-            if (resultSetUpdate != null && operation == UPDATE_OPERATION) {
+            if (resultSetUpdate != null && operation == OperationEnum.UPDATE) {
                 resultSetUpdate.close();
             }
             if (statement != null) {
@@ -185,8 +186,8 @@ public class DAOHelper <T extends Identifiable> {
     private String createInsertQuery(T entity){
         String tableName = getTableName();
         String paramsSpliter = ", ";
-        String queryParams = entityParamsAndValuesToString(entity, paramsSpliter, PARAMS);
-        String queryValues = entityParamsAndValuesToString(entity, paramsSpliter, VALUES);
+        String queryParams = entityParamsAndValuesToString(entity, paramsSpliter, ResultTypeEnum.PARAMS);
+        String queryValues = entityParamsAndValuesToString(entity, paramsSpliter, ResultTypeEnum.VALUES);
         String query = "INSERT INTO " + tableName + " (" + queryParams 
                      + ") VALUES (" + queryValues + ")";
         return query;
@@ -197,14 +198,15 @@ public class DAOHelper <T extends Identifiable> {
         String tableName = getTableName();
         int entityId = entity.getId();
         String paramsSpliter = ", ";
-        String queryParamsAndValues = entityParamsAndValuesToString(entity, paramsSpliter, PARAMS_AND_VALUES);
+        String queryParamsAndValues = entityParamsAndValuesToString(entity, paramsSpliter, ResultTypeEnum.PARAMS_AND_VALUES);
         String query = "UPDATE " + tableName + " SET " + queryParamsAndValues 
                      + " WHERE id=" + entityId;
         return query;
     }
     
     
-    private String entityParamsAndValuesToString(T entity, String splitWith, int resultType){
+    // TODO: Refactor in future - methor has many responsibilities
+    private String entityParamsAndValuesToString(T entity, String splitWith, ResultTypeEnum resultType){
         
         Method[] methods = entity.getClass().getMethods();
         List<String> queryParams = new ArrayList<>();
@@ -232,13 +234,13 @@ public class DAOHelper <T extends Identifiable> {
                 }
                 
                 if (!fieldValue.equalsIgnoreCase("0") && fieldValue != null){
-                    if (resultType == PARAMS_AND_VALUES){
+                    if (resultType == ResultTypeEnum.PARAMS_AND_VALUES){
                         queryParams.add(fieldName + "='" + fieldValue + "'");
                     }
-                    else if (resultType == PARAMS){
+                    else if (resultType == ResultTypeEnum.PARAMS){
                         queryParams.add(fieldName);
                     }
-                    else if (resultType == VALUES){
+                    else if (resultType == ResultTypeEnum.VALUES){
                         queryParams.add("'" + fieldValue + "'");
                     }
                     else {

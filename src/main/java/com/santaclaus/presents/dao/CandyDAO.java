@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CandyDAO {
 
-    void addCandies(int presentId, List<AbstractCandy> candies);
-    List<AbstractCandy> getCandiesByPresentId(int presentId);
+    void save(AbstractCandy candies);
+    List<AbstractCandy> getByPresentId(int presentId);
     
 }

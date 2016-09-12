@@ -28,7 +28,7 @@ public class PresentsController {
     {
         if (id != 0){
             PresentDAO presentDAO = DAOFactory.INSTANCE.getPresentDAO();
-            Present present = presentDAO.getPresentById(id);
+            Present present = presentDAO.getById(id);
             redirectAttributes.addFlashAttribute("present", present);
         }        
         return "redirect:/";
@@ -49,7 +49,7 @@ public class PresentsController {
                 if (present != null){
                     try {
                         PresentDAO presentDAO = DAOFactory.INSTANCE.getPresentDAO();
-                        int newPresentId = presentDAO.addPresent(present);
+                        int newPresentId = presentDAO.save(present);
                         uploadMessage.append("INFO: Present has been sucessfully added. Present ID = "+newPresentId);
                     }
                     catch (Exception e){

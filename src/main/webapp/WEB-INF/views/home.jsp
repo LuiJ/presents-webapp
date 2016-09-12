@@ -48,40 +48,46 @@
             <hr/>
             <h3><u>"${present.name}" Present</u></h3>
             
-            <c:if test="${not empty present.candies}">
-                
-                <c:set var="weight" value="0" scope="page" />
-                <c:set var="price" value="0" scope="page" />
-                
-                <p>Present candies:</p>
-                <table cellspacing="0" cellpadding="10" rules="groups" border="1">
-                    <thead>
-                        <tr>
-                            <td><b>Name</b></td>
-                            <td><b>Weight</b></td>
-                            <td><b>Price</b></td>
-                        </tr>
-                    </thead>
-                    <tbody>                        
-                        <c:forEach items="${present.candies}" var="candy">
-                            <c:set var="weight" value="${weight + candy.weight}" scope="page" />
-                            <c:set var="price" value="${price + candy.price}" scope="page" />
-                            
-                            <tr>
-                                <td>${candy.name}</td>
-                                <td>${candy.weight}</td>
-                                <td>${candy.price}</td>
-                            </tr>
-                        </c:forEach>                        
-                    </tbody> 
-                </table>
-                <p><b>Total weight:</b> ${weight}</p>
-                <p><b>Total price:</b> ${price}</p>
-                
+                <c:choose>
+                    
+                    <c:when test="${not empty present.candies}">
+                        <c:set var="weight" value="0" scope="page" />
+                        <c:set var="price" value="0" scope="page" />
+
+                        <p>Present candies:</p>
+                        <table cellspacing="0" cellpadding="10" rules="groups" border="1">
+                            <thead>
+                                <tr>
+                                    <td><b>Name</b></td>
+                                    <td><b>Weight</b></td>
+                                    <td><b>Price</b></td>
+                                </tr>
+                            </thead>
+                            <tbody>                        
+                                <c:forEach items="${present.candies}" var="candy">
+                                    <c:set var="weight" value="${weight + candy.weight}" scope="page" />
+                                    <c:set var="price" value="${price + candy.price}" scope="page" />
+
+                                    <tr>
+                                        <td>${candy.name}</td>
+                                        <td>${candy.weight}</td>
+                                        <td>${candy.price}</td>
+                                    </tr>
+                                </c:forEach>                        
+                            </tbody> 
+                        </table>
+                        <p><b>Total weight:</b> ${weight}</p>
+                        <p><b>Total price:</b> ${price}</p>
+                    </c:when> 
+                        
+                    <c:otherwise>
+                        <p>No candies.</p>
+                    </c:otherwise>
+                        
+                </c:choose>
+                        
+                <hr/>
             </c:if> 
-            
-            <hr/>
-        </c:if> 
-        
+                
     </body>
 </html>
